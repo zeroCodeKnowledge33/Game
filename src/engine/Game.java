@@ -19,11 +19,12 @@ public class Game implements GameManager{
 	private int currentPlayerIndex;
 	private int turn;
 
+
 	public Game(String playerName) throws IOException {
 		ArrayList<Colour> colourOrder = new ArrayList<>();
 		Collections.addAll(colourOrder, Colour.RED, Colour.GREEN, Colour.BLUE, Colour.YELLOW);
 		Collections.shuffle(colourOrder);
-		
+
 		board = new Board(colourOrder, this);
 		players = new ArrayList<>();
 		currentPlayerIndex = 0;
@@ -41,10 +42,16 @@ public class Game implements GameManager{
 		}
 
 	}
+	public Board getBoard(){
+		return board;
+	}
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayerIndex);
 	}
 	public ArrayList<Player> getPlayers() {
 	        return players;
+	}
+	public ArrayList<Card> getFirePit(){
+		return firePit;
 	}
 }

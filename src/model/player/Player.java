@@ -48,8 +48,5 @@ public class Player {
 		return selectedCard;
 	}
 
-	public ArrayList<Marble> getSelectedMarbles() {
-		return selectedMarbles;
-	}
-	
+
 }

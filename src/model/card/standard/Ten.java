@@ -1,6 +1,6 @@
 package model.card.standard;
 
-import model.Suit;
+import model.card.standard.*;
 import engine.*;
 import engine.board.*;
 public class Ten extends Standard{

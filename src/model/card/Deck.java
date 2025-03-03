@@ -9,9 +9,9 @@ import java.util.Collections;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-
+import model.card.standard.*;
 import engine.Game;
-import model.Suit;
+
 import model.card.standard.*;
 import model.card.wild.*;
 import model.card.standard.Standard;
@@ -20,13 +20,9 @@ import engine.board.*;
 
 public class Deck {
 	final static String CARDS_FILE = "Cards.csv";
-	static ArrayList<Card> cardsPool;
+	private static ArrayList<Card> cardsPool;
 
-	public static void main(String[] args) throws IOException {
-		GameManager gm = new Game("Hi");
-		BoardManager bm = new Board();
-		Deck.loadCardPool(bm,gm);
-	}
+
 	public static void loadCardPool(BoardManager boardManager, GameManager gameManager) throws IOException {
 		cardsPool = new ArrayList<>();
 		//Log-Youssef: the method CSVReader got from ChatGPT
@@ -36,7 +32,7 @@ public class Deck {
 		while (sc.hasNext()) {
 			Card card = null;
 			String row = sc.nextLine();
-			String[] line = row.split(",");
+			String[] line = row.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 			int code = Integer.parseInt(line[0]);
 			int f = Integer.parseInt(line[1]);
 			String name = line[2];
@@ -50,59 +46,22 @@ public class Deck {
 			}else {
 				int rank = 0;
 				String type = null;
-				if (line[4] != null) {
+				if (line[4] != "") {
 					rank = Integer.parseInt(line[4]);
 					type = line[5];
 				}
-
 				if (code >= 0 && code <= 13) {
-					Suit suitType = null;
-					if (code != 0) {
-						switch (type) {
-							case "SPADE":
-								suitType = Suit.SPADE;
-								break;
-							case "DIAMOND":
-								suitType = Suit.DIAMOND;
-								break;
-							case "HEART":
-								suitType = Suit.HEART;
-								break;
-							case "CLUB":
-								suitType = Suit.CLUB;
-								break;
-							default:
-								break;
-						}
+					switch (code) {
+						case 13: card = new King(name, description, Suit.valueOf(type), boardManager, gameManager); break;
+						case 12: card = new Queen(name, description, Suit.valueOf(type), boardManager, gameManager); break;
+						case 11: card = new Jack(name, description, Suit.valueOf(type), boardManager, gameManager); break;
+						case 10: card = new Ten(name, description, Suit.valueOf(type), boardManager, gameManager); break;
+						case 7: card = new Seven(name, description, Suit.valueOf(type), boardManager, gameManager); break;
+						case 5: card = new Five(name, description, Suit.valueOf(type), boardManager, gameManager); break;
+						case 4: card = new Four(name, description, Suit.valueOf(type), boardManager, gameManager); break;
+						case 1: card = new Ace(name, description, Suit.valueOf(type), boardManager, gameManager); break;
+						case 0: card = new Standard(name, description, rank, Suit.valueOf(type), boardManager, gameManager); break;
 					}
-					if (code == 13) {
-						card = new King(name, description, suitType, boardManager, gameManager);
-
-					} else if (code == 12) {
-						card = new Queen(name, description, suitType, boardManager, gameManager);
-
-					} else if (code == 11) {
-						card = new Jack(name, description, suitType, boardManager, gameManager);
-
-					} else if (code == 10) {
-						card = new Ten(name, description, suitType, boardManager, gameManager);
-
-					} else if (code == 7) {
-						card = new Seven(name, description, suitType, boardManager, gameManager);
-
-					} else if (code == 5) {
-						card = new Five(name, description, suitType, boardManager, gameManager);
-
-					} else if (code == 4) {
-						card = new Four(name, description, suitType, boardManager, gameManager);
-
-					} else if (code == 1) {
-						card = new Ace(name, description, suitType, boardManager, gameManager);
-
-					} else if (code == 0) {
-						card = new Standard(name, description, rank, suitType, boardManager, gameManager);
-					}
-
 				}
 			}
 			if (card != null) {
@@ -110,14 +69,15 @@ public class Deck {
 					cardsPool.add(card);
 				}
 			}
+
 		}
+
 	}
-
-
 
 	public static ArrayList<Card> drawCards() {
 		Collections.shuffle(cardsPool);
-		ArrayList<Card> hand = new ArrayList<>(cardsPool.subList(0, 4));
+		int drawCount = Math.min(4, cardsPool.size());
+		ArrayList<Card> hand = new ArrayList<>(cardsPool.subList(0, drawCount));
 		cardsPool.removeAll(hand);
 		return hand;
 	}
