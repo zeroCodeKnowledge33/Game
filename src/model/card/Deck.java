@@ -32,6 +32,7 @@ public class Deck {
 		while (sc.hasNext()) {
 			Card card = null;
 			String row = sc.nextLine();
+
 			String[] line = row.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 			int code = Integer.parseInt(line[0]);
 			int f = Integer.parseInt(line[1]);
@@ -69,11 +70,17 @@ public class Deck {
 					cardsPool.add(card);
 				}
 			}
-
 		}
 
 	}
 
+	public static void main(String[] args) throws IOException{
+		GameManager gm = null;
+		Deck.loadCardPool(null,null);
+		for(int i =0;i<cardsPool.size();i++){
+			System.out.println(cardsPool.get(i).getDescription());
+		}
+	}
 	public static ArrayList<Card> drawCards() {
 		Collections.shuffle(cardsPool);
 		int drawCount = Math.min(4, cardsPool.size());
