@@ -40,9 +40,15 @@ public class Deck {
 			String description = line[3];
 			if(code==14||code==15){
 				if(code==14) {
-					card = new Burner(name,description,boardManager,gameManager);
+					while (f-- > 0) {
+						card = new Burner(name,description,boardManager,gameManager);
+						cardsPool.add(card);
+					}
 				} else{
-					card = new Saver(name,description,boardManager,gameManager);
+					while (f-- > 0) {
+						card = new Saver(name,description,boardManager,gameManager);
+						cardsPool.add(card);
+					}
 				}
 			}else {
 				int rank = 0;
@@ -53,25 +59,64 @@ public class Deck {
 				}
 				if (code >= 0 && code <= 13) {
 					switch (code) {
-						case 13: card = new King(name, description, Suit.valueOf(type), boardManager, gameManager); break;
-						case 12: card = new Queen(name, description, Suit.valueOf(type), boardManager, gameManager); break;
-						case 11: card = new Jack(name, description, Suit.valueOf(type), boardManager, gameManager); break;
-						case 10: card = new Ten(name, description, Suit.valueOf(type), boardManager, gameManager); break;
-						case 7: card = new Seven(name, description, Suit.valueOf(type), boardManager, gameManager); break;
-						case 5: card = new Five(name, description, Suit.valueOf(type), boardManager, gameManager); break;
-						case 4: card = new Four(name, description, Suit.valueOf(type), boardManager, gameManager); break;
-						case 1: card = new Ace(name, description, Suit.valueOf(type), boardManager, gameManager); break;
-						case 0: card = new Standard(name, description, rank, Suit.valueOf(type), boardManager, gameManager); break;
+						case 13:
+							while (f-- > 0) {
+								card = new King(name, description, Suit.valueOf(type), boardManager, gameManager);
+								cardsPool.add(card);
+							}
+							break;
+						case 12:
+							while (f-- > 0) {
+								card = new Queen(name, description, Suit.valueOf(type), boardManager, gameManager);
+								cardsPool.add(card);
+							}
+							break;
+						case 11:
+							while (f-- > 0) {
+								card = new Jack(name, description, Suit.valueOf(type), boardManager, gameManager);
+								cardsPool.add(card);
+							}
+							break;
+						case 10:
+							while (f-- > 0) {
+								card = new Ten(name, description, Suit.valueOf(type), boardManager, gameManager);
+								cardsPool.add(card);
+							}
+							break;
+						case 7:
+							while (f-- > 0) {
+								card = new Seven(name, description, Suit.valueOf(type), boardManager, gameManager);
+								cardsPool.add(card);
+							}
+							break;
+						case 5:
+							while (f-- > 0) {
+								card = new Five(name, description, Suit.valueOf(type), boardManager, gameManager);
+								cardsPool.add(card);
+							}
+							break;
+						case 4:
+							while (f-- > 0) {
+								card = new Four(name, description, Suit.valueOf(type), boardManager, gameManager);
+								cardsPool.add(card);
+							}
+							break;
+						case 1:
+							while (f-- > 0) {
+								card = new Ace(name, description, Suit.valueOf(type), boardManager, gameManager);
+								cardsPool.add(card);
+							}
+							break;
+						case 0:
+							while (f-- > 0) {
+								card = new Standard(name, description, rank, Suit.valueOf(type), boardManager, gameManager);
+								cardsPool.add(card);
+							}
+							break;
 					}
 				}
 			}
-			if (card != null) {
-				while (f-- > 0) {
-					cardsPool.add(card);
-				}
-			}
 		}
-
 	}
 
 	public static void main(String[] args) throws IOException{

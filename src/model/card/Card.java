@@ -14,7 +14,6 @@ public abstract class Card {
 		this.description = description;
 		this.boardManager= boardManager;
 		this.gameManager = gameManager;
-		
 	}
 
 	public String getName() {

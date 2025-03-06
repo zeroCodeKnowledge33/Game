@@ -5,6 +5,7 @@ import model.Colour;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Board implements BoardManager{
 	private final GameManager gameManager;
@@ -27,7 +28,7 @@ public class Board implements BoardManager{
 		for(int i = 23;i<100;i+=25){
 			track.get(i).setCellType(CellType.ENTRY);
 		}
-		
+
 		for(int i = 0;i<8;i++){
 			assignTrapCell();
 		}
@@ -44,15 +45,15 @@ public class Board implements BoardManager{
         this.splitDistance = splitDistance;
     }
     private void assignTrapCell() {
-        ArrayList<Integer> indices = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-        	if(i%25!=0 && i!=23 && i!=48 && i!=73 && i!=98 && !track.get(i).isTrap())
-        		indices.add(i);
+		Random ran = new Random();
+		int i;
+       	while(true){
+			i = ran.nextInt(100);
+        	if(i%25!=0 && i!=23 && i!=48 && i!=73 && i!=98 && !track.get(i).isTrap()) {
+				break;
+			}
         }
-        Collections.shuffle(indices);
-        for (int i = 0; i < 8; i++) {
-            track.get(indices.get(i)).setTrap(true);
-        }
+		track.get(i).setTrap(true);
     }
     
 	public ArrayList<Cell> getTrack() {
@@ -65,5 +66,5 @@ public class Board implements BoardManager{
 	public GameManager getGameManager() {
 		return gameManager;
 	}
-	
+
 }

@@ -9,8 +9,8 @@ public class SafeZone {
 	public SafeZone(Colour colour){
 		cells = new ArrayList<>();
 		this.colour = colour;
-		Cell cell = new Cell(CellType.SAFE);
 		for(int i =0;i<4;i++){
+			Cell cell = new Cell(CellType.SAFE);
 			cells.add(cell);
 		}
 	}

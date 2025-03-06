@@ -1,12 +1,14 @@
 package exception;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class CannotFieldException extends ActionException{
-	private static final long serialVersionUID = 1L;
 	public CannotFieldException(){
 		super();
 	}
 	public CannotFieldException(String message){
 		super(message);
 	}
-
 }

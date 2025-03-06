@@ -48,7 +48,7 @@ public class Game implements GameManager{
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayerIndex);
 	}
-	public ArrayList<Player> getPlayers() {
+	public ArrayList<Player> g etPlayers() {
 	        return players;
 	}
 	public ArrayList<Card> getFirePit(){
